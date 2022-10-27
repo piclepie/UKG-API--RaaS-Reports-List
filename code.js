@@ -20,6 +20,8 @@
         on the top of the page. Click Run.       
 
 */
+
+
 async function uKG_fetch_APIReportLIST() {
     console.log("Task Started")
         //how to find your google sheet id?  copy the url of your google sheet.
@@ -54,17 +56,26 @@ async function uKG_fetch_APIReportLIST() {
 
 
 function uKG_fetch_API_ReturnlogonSecret() {
-
-    const reportLIst_XMLenvlop_login = '<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">' +
-        '<s:Header> <a:Action s:mustUnderstand="1">http://www.ultipro.com/dataservices/bidata/2/IBIDataService/LogOn</a:Action>' +
-        '<a:To s:mustUnderstand="1">https://yourhost.ultipro.com/services/BIDataService</a:To> </s:Header> ' +
-        '<s:Body> <LogOn xmlns="http://www.ultipro.com/dataservices/bidata/2">' +
-        '<logOnRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance">' +
-        '<UserName>UserName</UserName>' +
-        '<Password>apipassword</Password>' +
-        '<ClientAccessKey>Customer API Key</ClientAccessKey>' +
-        '<UserAccessKey>User API Key</UserAccessKey>' +
-        '</logOnRequest></LogOn></s:Body></s:Envelope>'
+    const UserName = "UserName";
+    const apipassword = "apipassword";
+    const CustomerAPIKey = "CustomerAPIKey";
+    const UserAPIKey = "UserAPIKey";
+    const reportLIst_XMLenvlop_login = `
+    <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
+        <s:Header> <a:Action s:mustUnderstand="1">http://www.ultipro.com/dataservices/bidata/2/IBIDataService/LogOn</a:Action>
+            <a:To s:mustUnderstand="1">https://yourhost.ultipro.com/services/BIDataService</a:To>
+        </s:Header>  
+        <s:Body> 
+            <LogOn xmlns="http://www.ultipro.com/dataservices/bidata/2"> 
+                <logOnRequest xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+                <UserName>${UserName}</UserName>
+                <Password>${apipassword}</Password>
+                <ClientAccessKey>${CustomerAPIKey}</ClientAccessKey>
+                <UserAccessKey>${UserAPIKey}</UserAccessKey>
+                </logOnRequest>
+            </LogOn>
+        </s:Body>
+    </s:Envelope>`
     const options1 = {
         method: 'POST',
         payload: reportLIst_XMLenvlop_login,
